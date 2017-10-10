@@ -85,6 +85,8 @@
             // 
             this.todo_box.FormattingEnabled = true;
             this.todo_box.HorizontalScrollbar = true;
+            this.todo_box.Items.AddRange(new object[] {
+            "--- end ---"});
             this.todo_box.Location = new System.Drawing.Point(12, 69);
             this.todo_box.Name = "todo_box";
             this.todo_box.Size = new System.Drawing.Size(206, 454);
@@ -95,6 +97,8 @@
             // 
             this.in_process_box.FormattingEnabled = true;
             this.in_process_box.HorizontalScrollbar = true;
+            this.in_process_box.Items.AddRange(new object[] {
+            "--- end ---"});
             this.in_process_box.Location = new System.Drawing.Point(224, 69);
             this.in_process_box.Name = "in_process_box";
             this.in_process_box.Size = new System.Drawing.Size(211, 454);
@@ -105,6 +109,8 @@
             // 
             this.test_box.FormattingEnabled = true;
             this.test_box.HorizontalScrollbar = true;
+            this.test_box.Items.AddRange(new object[] {
+            "--- end ---"});
             this.test_box.Location = new System.Drawing.Point(441, 69);
             this.test_box.Name = "test_box";
             this.test_box.Size = new System.Drawing.Size(219, 454);
@@ -115,6 +121,8 @@
             // 
             this.release_box.FormattingEnabled = true;
             this.release_box.HorizontalScrollbar = true;
+            this.release_box.Items.AddRange(new object[] {
+            "--- end ---"});
             this.release_box.Location = new System.Drawing.Point(666, 69);
             this.release_box.Name = "release_box";
             this.release_box.Size = new System.Drawing.Size(220, 454);
@@ -141,7 +149,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(602, 20);
             this.textBox1.TabIndex = 10;
-        
             this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.key_down);
             // 
             // Form1

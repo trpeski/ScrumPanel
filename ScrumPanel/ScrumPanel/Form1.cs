@@ -32,43 +32,60 @@ namespace ScrumPanel
                 }
             }
             else { todo_box.Items.Insert(0, textBox1.Text); textBox1.Clear(); }
+
+            
         }
 
         private void itemChecked(object sender, ItemCheckEventArgs e)
         {
-            if (in_process_box.Items.Count <= todo_box.Items.Count)
+            if (todo_box.Items[e.Index] != "--- end ---")
             {
-                if (!in_process_box.Items.Contains(todo_box.Items[e.Index]))
+                if (in_process_box.Items.Count <= todo_box.Items.Count)
                 {
-                    in_process_box.Items.Insert(0, todo_box.Items[e.Index]);
+                    if (!in_process_box.Items.Contains(todo_box.Items[e.Index]))
+                    {
+                        in_process_box.Items.Insert(0, todo_box.Items[e.Index]);
+                    }
                 }
+                else { in_process_box.Items.Insert(0, todo_box.Items[e.Index]); }
+
+                todo_box.Items.Remove(todo_box.Items[e.Index]);
             }
-            else { in_process_box.Items.Insert(0, todo_box.Items[e.Index]);  }
         }
 
         private void onCheked(object sender, ItemCheckEventArgs e)
         {
-            if (test_box.Items.Count <= in_process_box.Items.Count)
+            if (in_process_box.Items[e.Index] != "--- end ---")
             {
-                if (!test_box.Items.Contains(in_process_box.Items[e.Index]))
+                if (test_box.Items.Count <= in_process_box.Items.Count)
                 {
-                    test_box.Items.Insert(0, in_process_box.Items[e.Index]);
+                    if (!test_box.Items.Contains(in_process_box.Items[e.Index]))
+                    {
+                        test_box.Items.Insert(0, in_process_box.Items[e.Index]);
+                    }
                 }
+                else { test_box.Items.Insert(0, todo_box.Items[e.Index]); }
+
+                in_process_box.Items.Remove(in_process_box.Items[e.Index]);
             }
-            else { test_box.Items.Insert(0, todo_box.Items[e.Index]); }
 
         }
 
         private void onCheck(object sender, ItemCheckEventArgs e)
         {
-            if (release_box.Items.Count <= test_box.Items.Count)
+            if (test_box.Items[e.Index] != "--- end ---")
             {
-                if (!release_box.Items.Contains(test_box.Items[e.Index]))
+                if (release_box.Items.Count <= test_box.Items.Count)
                 {
-                    release_box.Items.Insert(0, test_box.Items[e.Index]);
+                    if (!release_box.Items.Contains(test_box.Items[e.Index]))
+                    {
+                        release_box.Items.Insert(0, test_box.Items[e.Index]);
+                    }
                 }
+                else { release_box.Items.Insert(0, todo_box.Items[e.Index]); }
+
+                test_box.Items.Remove(test_box.Items[e.Index]);
             }
-            else { release_box.Items.Insert(0, todo_box.Items[e.Index]); }
         }
 
      
