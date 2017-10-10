@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Documents;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace ScrumPanel
 {
@@ -96,6 +98,57 @@ namespace ScrumPanel
             {
                 button1_Click(null, null);
             }
+        }
+
+        private void Close_save(object sender, FormClosedEventArgs e)
+        {
+            FileStream file = File.Open("data.xml", FileMode.Create);
+            file.Close();
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml("<root></root>");
+        
+
+            XmlNode node = doc.DocumentElement;
+           
+            for (int i = todo_box.Items.Count - 2; i > -1; i--)
+            {
+                XmlElement xtodo = doc.CreateElement("todo");
+                xtodo.InnerText = todo_box.Items[i].ToString();
+                node.AppendChild(xtodo);
+            }
+
+
+            for (int i = in_process_box.Items.Count - 2; i > -1; i--)
+            {
+                XmlElement xtodo = doc.CreateElement("in_process");
+                xtodo.InnerText = in_process_box.Items[i].ToString();
+                node.AppendChild(xtodo);
+            }
+
+
+            for (int i = test_box.Items.Count - 2; i > -1; i--)
+            {
+                XmlElement xtodo = doc.CreateElement("test");
+                xtodo.InnerText = test_box.Items[i].ToString();
+                node.AppendChild(xtodo);
+            }
+
+
+            for (int i = release_box.Items.Count - 2; i > -1; i--)
+            {
+                XmlElement xtodo = doc.CreateElement("release");
+                xtodo.InnerText = release_box.Items[i].ToString();
+                node.AppendChild(xtodo);
+            }
+
+
+
+
+
+            doc.Save("data.xml");
+
+            
         }
     }
 }

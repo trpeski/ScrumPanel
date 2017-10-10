@@ -168,6 +168,7 @@
             this.Controls.Add(this.todo_text);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Close_save);
             this.ResumeLayout(false);
             this.PerformLayout();
 
