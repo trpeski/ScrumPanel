@@ -169,6 +169,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Close_save);
+            this.Load += new System.EventHandler(this.Load_Data);
             this.ResumeLayout(false);
             this.PerformLayout();
 

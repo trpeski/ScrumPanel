@@ -150,5 +150,31 @@ namespace ScrumPanel
 
             
         }
+
+        private void Load_Data(object sender, EventArgs e)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("data.xml");
+
+            foreach (XmlElement text in doc.GetElementsByTagName("todo"))
+            {
+                todo_box.Items.Insert(0, text.InnerText);
+            }
+
+            foreach (XmlElement text in doc.GetElementsByTagName("in_process"))
+            {
+                in_process_box.Items.Insert(0, text.InnerText);
+            }
+
+            foreach (XmlElement text in doc.GetElementsByTagName("test"))
+            {
+                test_box.Items.Insert(0, text.InnerText);
+            }
+
+            foreach (XmlElement text in doc.GetElementsByTagName("release"))
+            {
+                release_box.Items.Insert(0, text.InnerText);
+            }
+        }
     }
 }
