@@ -13,14 +13,23 @@ namespace ScrumPanel
             InitializeComponent();
         }
 
-        private void TodoGroup_Enter(object sender, EventArgs e)
+
+        private void move_item(CheckedListBox from, CheckedListBox to, ItemCheckEventArgs e)
         {
 
-        }
+            if (from.Items[e.Index] != "--- end ---")
+            {
+                if (to.Items.Count <= from.Items.Count)
+                {
+                    if (!to.Items.Contains(from.Items[e.Index]))
+                    {
+                        to.Items.Insert(0, from.Items[e.Index]);
+                    }
+                }
+                else { to.Items.Insert(0, from.Items[e.Index]); }
 
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+                from.Items.Remove(from.Items[e.Index]);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -34,60 +43,21 @@ namespace ScrumPanel
                 }
             }
             else { todo_box.Items.Insert(0, textBox1.Text); textBox1.Clear(); }
-
-            
         }
 
-        private void itemChecked(object sender, ItemCheckEventArgs e)
+        private void in_to_in_process_from_todo(object sender, ItemCheckEventArgs e)
         {
-            if (todo_box.Items[e.Index] != "--- end ---")
-            {
-                if (in_process_box.Items.Count <= todo_box.Items.Count)
-                {
-                    if (!in_process_box.Items.Contains(todo_box.Items[e.Index]))
-                    {
-                        in_process_box.Items.Insert(0, todo_box.Items[e.Index]);
-                    }
-                }
-                else { in_process_box.Items.Insert(0, todo_box.Items[e.Index]); }
-
-                todo_box.Items.Remove(todo_box.Items[e.Index]);
-            }
+            move_item(todo_box, in_process_box, e);
         }
 
-        private void onCheked(object sender, ItemCheckEventArgs e)
+        private void in_to_test_from_in_process(object sender, ItemCheckEventArgs e)
         {
-            if (in_process_box.Items[e.Index] != "--- end ---")
-            {
-                if (test_box.Items.Count <= in_process_box.Items.Count)
-                {
-                    if (!test_box.Items.Contains(in_process_box.Items[e.Index]))
-                    {
-                        test_box.Items.Insert(0, in_process_box.Items[e.Index]);
-                    }
-                }
-                else { test_box.Items.Insert(0, todo_box.Items[e.Index]); }
-
-                in_process_box.Items.Remove(in_process_box.Items[e.Index]);
-            }
-
+            move_item(in_process_box, test_box, e);
         }
 
-        private void onCheck(object sender, ItemCheckEventArgs e)
+        private void in_to_release_from_test(object sender, ItemCheckEventArgs e)
         {
-            if (test_box.Items[e.Index] != "--- end ---")
-            {
-                if (release_box.Items.Count <= test_box.Items.Count)
-                {
-                    if (!release_box.Items.Contains(test_box.Items[e.Index]))
-                    {
-                        release_box.Items.Insert(0, test_box.Items[e.Index]);
-                    }
-                }
-                else { release_box.Items.Insert(0, todo_box.Items[e.Index]); }
-
-                test_box.Items.Remove(test_box.Items[e.Index]);
-            }
+            move_item(test_box, release_box, e);
         }
 
      
@@ -96,6 +66,7 @@ namespace ScrumPanel
         {
             if(e.KeyCode == Keys.Enter)
             {
+                e.Handled = e.SuppressKeyPress = true;
                 button1_Click(null, null);
             }
         }
@@ -153,28 +124,36 @@ namespace ScrumPanel
 
         private void Load_Data(object sender, EventArgs e)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load("data.xml");
-
-            foreach (XmlElement text in doc.GetElementsByTagName("todo"))
+            try
             {
-                todo_box.Items.Insert(0, text.InnerText);
+                XmlDocument doc = new XmlDocument();
+                doc.Load("data.xml");
+
+                foreach (XmlElement text in doc.GetElementsByTagName("todo"))
+                {
+                    todo_box.Items.Insert(0, text.InnerText);
+                }
+
+                foreach (XmlElement text in doc.GetElementsByTagName("in_process"))
+                {
+                    in_process_box.Items.Insert(0, text.InnerText);
+                }
+
+                foreach (XmlElement text in doc.GetElementsByTagName("test"))
+                {
+                    test_box.Items.Insert(0, text.InnerText);
+                }
+
+                foreach (XmlElement text in doc.GetElementsByTagName("release"))
+                {
+                    release_box.Items.Insert(0, text.InnerText);
+                }
             }
-
-            foreach (XmlElement text in doc.GetElementsByTagName("in_process"))
+            catch (Exception)
             {
-                in_process_box.Items.Insert(0, text.InnerText);
-            }
-
-            foreach (XmlElement text in doc.GetElementsByTagName("test"))
-            {
-                test_box.Items.Insert(0, text.InnerText);
-            }
-
-            foreach (XmlElement text in doc.GetElementsByTagName("release"))
-            {
-                release_box.Items.Insert(0, text.InnerText);
+                // file does not exist but no problem it will be created when the app gets closed
             }
         }
+            
     }
 }

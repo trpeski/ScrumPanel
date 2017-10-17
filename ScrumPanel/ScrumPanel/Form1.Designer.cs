@@ -91,7 +91,7 @@
             this.todo_box.Name = "todo_box";
             this.todo_box.Size = new System.Drawing.Size(206, 454);
             this.todo_box.TabIndex = 5;
-            this.todo_box.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.itemChecked);
+            this.todo_box.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.in_to_in_process_from_todo);
             // 
             // in_process_box
             // 
@@ -103,7 +103,7 @@
             this.in_process_box.Name = "in_process_box";
             this.in_process_box.Size = new System.Drawing.Size(211, 454);
             this.in_process_box.TabIndex = 6;
-            this.in_process_box.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.onCheked);
+            this.in_process_box.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.in_to_test_from_in_process);
             // 
             // test_box
             // 
@@ -115,7 +115,7 @@
             this.test_box.Name = "test_box";
             this.test_box.Size = new System.Drawing.Size(219, 454);
             this.test_box.TabIndex = 7;
-            this.test_box.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.onCheck);
+            this.test_box.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.in_to_release_from_test);
             // 
             // release_box
             // 
